@@ -1,0 +1,9 @@
+@use 'src/styles/variables' as *;
+
+.input {
+    margin: 5px 0;
+    padding: 5px 15px;
+    width: 100%;
+    border: $ui-border;
+    border-radius: $ui-border-radius;
+}

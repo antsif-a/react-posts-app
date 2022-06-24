@@ -1,0 +1,65 @@
+@use 'variables' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 800px;
+}
+
+.separator {
+    width: 100%;
+    margin: 15px 0;
+    color: $primary-color;
+}
+
+.title {
+    text-align: center;
+}
+
+.form {
+    padding: 15px;
+    margin: 15px;
+}
+
+.post {
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid $primary-color;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-content {
+    width: 70%;
+}
+
+.post-enter {
+    opacity: 0;
+    transform: translateX(-150px);
+}
+
+.post-enter-active {
+    opacity: 1;
+    transform: translateX(0px);
+    transition: all 500ms ease-in;
+}
+
+.post-exit {
+    opacity: 1;
+}
+
+.post-exit-active {
+    opacity: 0;
+    transform: translateX(-150px);
+    transition: all 500ms ease-in;
+}

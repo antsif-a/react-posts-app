@@ -1,0 +1,7 @@
+@use 'src/styles/variables' as *;
+
+.select {
+    background: white;
+    border: $ui-border;
+    border-radius: $ui-border-radius;
+}
