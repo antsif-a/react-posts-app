@@ -1,6 +1,11 @@
 {
-  "name": "portfolio-react",
+  "name": "react-posts-app",
   "version": "1.0.0",
+  "author": {
+    "name": "Andrew Antsiferov",
+    "email": "summet.dev@gmail.com",
+    "url": "https://github.com/antsif-a"
+  },
   "private": true,
   "dependencies": {
     "axios": "^0.27.2",
