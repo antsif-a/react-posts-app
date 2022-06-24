@@ -18,7 +18,7 @@ function PostList({ posts, title, onPostRemove }: PostListProps) {
         <div>
             <h1 className="title">{title}</h1>
             <TransitionGroup>
-                {posts.map((post, index) => <CSSTransition
+                {posts.map((post) => <CSSTransition
                     key={post.id}
                     timeout={500}
                     classNames="post"
@@ -26,10 +26,8 @@ function PostList({ posts, title, onPostRemove }: PostListProps) {
                     <PostItem
                         post={post}
                         onRemove={onPostRemove}
-                        index={index}
                     />
                 </CSSTransition>)}
-
             </TransitionGroup>
         </div>
     );

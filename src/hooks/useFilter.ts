@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { IPost } from '../interfaces/IPost';
 import { IFilter } from '../interfaces/IFilter';
 
-export function usePosts(posts: IPost[], filter: IFilter) {
+export function useFilter(posts: IPost[], filter: IFilter) {
     const sortedPosts = useMemo(() => {
         const { sortOption } = filter;
         if (sortOption === 'title' || sortOption === 'body') {

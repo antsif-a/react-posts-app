@@ -3,13 +3,13 @@ import classList from './Button.module.scss';
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     type?: 'button' | 'submit' | 'reset';
-    buttonName: string;
+    buttonName?: string;
 }
 
-function Button({ buttonName, ...props }: ButtonProps) {
+function Button({ buttonName, children, ...props }: ButtonProps) {
     return (
         <button {...props} className={classList.button}>
-            {buttonName}
+            { children || buttonName }
         </button>
     );
 }

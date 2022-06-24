@@ -5,14 +5,13 @@ import { IPost } from '../interfaces/IPost';
 interface PostItemProps {
     post: IPost
     onRemove: (post: IPost) => void;
-    index: number;
 }
 
-function PostItem({ post, onRemove, index }: PostItemProps) {
+function PostItem({ post, onRemove }: PostItemProps) {
     return (
         <div className="post">
             <div className="post-content">
-                <strong>{index + 1}. {post.title}</strong>
+                <strong>{post.id}. {post.title}</strong>
                 <p>{post.body}</p>
             </div>
             <Button

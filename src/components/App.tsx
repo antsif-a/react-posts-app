@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAsyncLoader } from '../hooks/useLoader';
-import { usePosts } from '../hooks/usePosts';
+import { useFilter } from '../hooks/useFilter';
 import PostList from './PostList';
 import PostForm from './PostForm';
 import PostFilter from './PostFilter';
 import Modal from './ui/modal/Modal';
 import Loader from './ui/loader/Loader';
 import Button from './ui/button/Button';
+import Pagination from './ui/pagination/Pagination';
 import PostService from '../api/PostService';
 import { IPost } from '../interfaces/IPost';
 import '../styles/main.scss';
@@ -16,16 +17,21 @@ function App() {
 
     const [posts, setPosts] = useState<IPost[]>([]);
     const [postsFilter, setPostsFilter] = useState({ sortOption: 'id', searchQuery: '' });
-    const sortedAndSearchedPosts = usePosts(posts, postsFilter);
+    const sortedAndSearchedPosts = useFilter(posts, postsFilter);
 
+    const [limit] = useState(5);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     const [fetchPosts, postsLoading, postsError] = useAsyncLoader(async () => {
-        const postsData = await PostService.getAll();
-        setPosts(postsData);
+        const res = await PostService.get(limit, page);
+        const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
+        setPosts(res.data);
+        setTotalPages(Math.ceil(totalPosts / limit));
     });
 
     useEffect(() => {
         fetchPosts();
-    }, []);
+    }, [page]);
 
     const onPostRemove = (post: IPost) => {
         setPosts([...posts].filter((p) => p.id !== post.id));
@@ -59,6 +65,11 @@ function App() {
                 ? <Loader/>
                 : <PostList posts={sortedAndSearchedPosts} title="Posts" onPostRemove={onPostRemove}/>
             }
+            <Pagination
+                page={page}
+                onPageChange={setPage}
+                totalPages={totalPages}
+            />
         </div>
     );
 }
