@@ -29,10 +29,10 @@ function PostFilter({ filter, onFilterUpdate }: PostFilterProps) {
                 />
                 <Input
                     className="filter-limit"
-                    value={filter.limit}
+                    value={filter.limit > 0 ? filter.limit : undefined}
                     onInputChange={(limit) => onFilterUpdate({
                         ...filter,
-                        limit: Number.parseInt(limit, 10) || filter.limit,
+                        limit: Number.parseInt(limit, 10) || 0,
                     })}
                     placeholder="Limit..."
                     type="number"

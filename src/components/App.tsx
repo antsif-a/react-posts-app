@@ -17,16 +17,22 @@ function App() {
     const [modalVisible, setModalVisible] = useState(false);
 
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [postsFilter, setPostsFilter] = useState<IFilter>({ sortOption: 'id', searchQuery: '', limit: 5 });
+    const [postsFilter, setPostsFilter] = useState<IFilter>({ sortOption: 'id', searchQuery: '', limit: 0 });
     const sortedAndSearchedPosts = useFilter(posts, postsFilter);
 
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [fetchPosts, postsLoading, postsError] = useAsyncLoader(async () => {
-        const res = await PostService.get(postsFilter.limit, page);
-        const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
-        setPosts(res.data);
-        setTotalPages(Math.ceil(totalPosts / postsFilter.limit));
+        if (postsFilter.limit > 0) {
+            const res = await PostService.get(postsFilter.limit, page);
+            const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
+            setPosts(res.data);
+            setTotalPages(Math.ceil(totalPosts / postsFilter.limit));
+        } else {
+            const newPosts = await PostService.getAllPosts();
+            setPosts(newPosts);
+            setTotalPages(1);
+        }
     });
 
     useEffect(() => {
