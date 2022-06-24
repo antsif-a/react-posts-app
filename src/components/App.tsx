@@ -9,6 +9,7 @@ import Loader from './ui/loader/Loader';
 import Button from './ui/button/Button';
 import Pagination from './ui/pagination/Pagination';
 import PostService from '../api/PostService';
+import { IFilter } from '../interfaces/IFilter';
 import { IPost } from '../interfaces/IPost';
 import '../styles/main.scss';
 
@@ -16,22 +17,21 @@ function App() {
     const [modalVisible, setModalVisible] = useState(false);
 
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [postsFilter, setPostsFilter] = useState({ sortOption: 'id', searchQuery: '' });
+    const [postsFilter, setPostsFilter] = useState<IFilter>({ sortOption: 'id', searchQuery: '', limit: 5 });
     const sortedAndSearchedPosts = useFilter(posts, postsFilter);
 
-    const [limit] = useState(5);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [fetchPosts, postsLoading, postsError] = useAsyncLoader(async () => {
-        const res = await PostService.get(limit, page);
+        const res = await PostService.get(postsFilter.limit, page);
         const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
         setPosts(res.data);
-        setTotalPages(Math.ceil(totalPosts / limit));
+        setTotalPages(Math.ceil(totalPosts / postsFilter.limit));
     });
 
     useEffect(() => {
         fetchPosts();
-    }, [page]);
+    }, [page, postsFilter.limit]);
 
     const onPostRemove = (post: IPost) => {
         setPosts([...posts].filter((p) => p.id !== post.id));

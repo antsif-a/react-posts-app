@@ -30,6 +30,27 @@
     margin: 15px;
 }
 
+.filter {
+    .filter-flex {
+        display: flex;
+        justify-content: left;
+        align-items: normal;
+
+        * {
+            margin: 0;
+        }
+    }
+
+    .filter-query {
+        width: 100%;
+    }
+
+    .filter-limit {
+        margin-left: 5px;
+        width: 75px;
+    }
+}
+
 .post {
     display: flex;
     padding: 15px;
@@ -37,10 +58,10 @@
     border: 2px solid $primary-color;
     justify-content: space-between;
     align-items: center;
-}
 
-.post-content {
-    width: 70%;
+    .post-content {
+        width: 70%;
+    }
 }
 
 .post-enter {

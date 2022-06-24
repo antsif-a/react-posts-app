@@ -26,7 +26,7 @@ function Pagination({ page, onPageChange, totalPages }: PaginationProps) {
             <Button onClick={prevPage}>
                 <IoTriangle className={classList['icon-left']}/>
             </Button>
-            <span>{page}</span>
+            <span>{page} / {totalPages}</span>
             <Button onClick={nextPage}>
                 <IoTriangle className={classList['icon-right']}/>
             </Button>

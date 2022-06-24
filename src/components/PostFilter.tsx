@@ -10,21 +10,34 @@ interface PostFilterProps {
 
 function PostFilter({ filter, onFilterUpdate }: PostFilterProps) {
     return (
-        <div>
+        <div className="filter">
             <Input
+                className="filter-query"
                 value={filter.searchQuery}
                 onInputChange={(searchQuery) => onFilterUpdate({ ...filter, searchQuery })}
                 placeholder="Search..."
             />
-            <Select
-                value={filter.sortOption}
-                onOptionChange={(sortOption) => onFilterUpdate({ ...filter, sortOption })}
-                options={[
-                    { name: 'By title', value: 'title' },
-                    { name: 'By description', value: 'description' },
-                    { name: 'By id', value: 'id' },
-                ]}
-            />
+            <div className="filter-flex">
+                <Select
+                    value={filter.sortOption}
+                    onOptionChange={(sortOption) => onFilterUpdate({ ...filter, sortOption })}
+                    options={[
+                        { name: 'By title', value: 'title' },
+                        { name: 'By description', value: 'description' },
+                        { name: 'By id', value: 'id' },
+                    ]}
+                />
+                <Input
+                    className="filter-limit"
+                    value={filter.limit}
+                    onInputChange={(limit) => onFilterUpdate({
+                        ...filter,
+                        limit: Number.parseInt(limit, 10) || filter.limit,
+                    })}
+                    placeholder="Limit..."
+                    type="number"
+                />
+            </div>
         </div>
     );
 }

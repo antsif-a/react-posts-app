@@ -5,10 +5,10 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
     onInputChange: (value: string) => void;
 }
 
-function Input({ onInputChange, ...props }: InputProps) {
+function Input({ onInputChange, className, ...props }: InputProps) {
     return (
         <input
-            className={classList.input}
+            className={[classList.input, className].join(' ')}
             onChange={(e) => onInputChange(e.target.value)}
             {...props}
         />
