@@ -6,16 +6,16 @@
     right: 0;
     display: none;
     background: rgba(0, 0, 0, .5);
+
+    .modal-content {
+        padding: 5px;
+        background: white;
+        border-radius: 10px;
+        min-width: 250px;
+    }
 }
 
-.modal-content {
-    padding: 5px;
-    background: white;
-    border-radius: 10px;
-    min-width: 250px;
-}
-
-.modal.active {
+.active {
     display: flex;
     justify-content: center;
     align-items: center;

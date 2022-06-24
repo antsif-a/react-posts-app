@@ -34,7 +34,7 @@ function PostForm({ onPostCreate }: PostFormProps) {
             <Input
                 placeholder="Description"
                 value={post.body}
-                onInputChange={(description) => setPost({ ...post, body: description })}
+                onInputChange={(body) => setPost({ ...post, body })}
             />
             <Button
                 buttonName="Create new post"
