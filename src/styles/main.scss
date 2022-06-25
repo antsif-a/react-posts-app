@@ -1,5 +1,7 @@
-@use 'sass:color';
 @use 'variables' as *;
+@use 'posts';
+@use 'post';
+@use 'about';
 
 * {
     margin: 0;
@@ -17,3 +19,12 @@
     width: 40%;
 }
 
+.title {
+    text-align: center;
+}
+
+.separator {
+    width: 100%;
+    margin: 15px 0;
+    color: $primary-color;
+}

@@ -1,15 +1,5 @@
 @use 'variables' as *;
 
-.separator {
-    width: 100%;
-    margin: 15px 0;
-    color: $primary-color;
-}
-
-.title {
-    text-align: center;
-}
-
 .form {
     padding: 15px;
     margin: 15px;
@@ -36,7 +26,7 @@
     }
 }
 
-.post {
+.post-item {
     display: flex;
     padding: 15px;
     margin: 15px auto 15px;
@@ -44,8 +34,13 @@
     justify-content: space-between;
     align-items: center;
 
-    .post-content {
+    .post-item-content {
         width: 70%;
+
+        .post-item-title {
+            color: black;
+            font-weight: bold;
+        }
     }
 }
 

@@ -1,14 +1,22 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './ui/navbar/Navbar';
-import AppRouter from './AppRouter';
-import '../styles/app.scss';
+import Posts from '../routes/Posts';
+import Post from '../routes/Post';
+import About from '../routes/About';
+import '../styles/main.scss';
 
 function App() {
     return (
         <BrowserRouter>
             <Navbar/>
-            <AppRouter/>
+            <div className="app">
+                <Routes>
+                    <Route path="posts" element={<Posts/>} />
+                    <Route path="posts/:id" element={<Post/>}/>
+                    <Route path="about" element={<About/>}/>
+                </Routes>
+            </div>
         </BrowserRouter>
     );
 }

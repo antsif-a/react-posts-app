@@ -11,7 +11,6 @@ import PostFilter from '../components/PostFilter';
 import Loader from '../components/ui/loader/Loader';
 import PostList from '../components/PostList';
 import Pagination from '../components/ui/pagination/Pagination';
-import '../styles/posts.scss';
 
 function Posts() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -49,14 +48,13 @@ function Posts() {
     };
 
     return (
-        <div className="app">
+        <>
             <Modal visible={modalVisible} setVisible={setModalVisible}>
                 <PostForm onPostCreate={onPostCreate}/>
             </Modal>
 
             <Button
                 buttonName="Create new post"
-                style={{ marginTop: 15 }}
                 onClick={() => setModalVisible(true)}
             />
             <hr className="separator"/>
@@ -69,14 +67,13 @@ function Posts() {
             }
             {postsLoading
                 ? <Loader/>
-                : <PostList posts={sortedAndSearchedPosts} title="Posts" onPostRemove={onPostRemove}/>
-            }
+                : <PostList posts={sortedAndSearchedPosts} title="Posts" onPostRemove={onPostRemove}/>}
             <Pagination
                 page={page}
                 onPageChange={setPage}
                 totalPages={totalPages}
             />
-        </div>
+        </>
     );
 }
 

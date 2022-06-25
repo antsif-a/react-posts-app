@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from './ui/button/Button';
 import { IPost } from '../interfaces/IPost';
 
@@ -9,9 +10,14 @@ interface PostItemProps {
 
 function PostItem({ post, onRemove }: PostItemProps) {
     return (
-        <div className="post">
-            <div className="post-content">
-                <strong>{post.id}. {post.title}</strong>
+        <div className="post-item">
+            <div className="post-item-content">
+                <Link
+                    to={`/posts/${post.id}`}
+                    className="post-item-title"
+                >
+                    {post.id}. {post.title}
+                </Link>
                 <p>{post.body}</p>
             </div>
             <Button
