@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IPost } from '../api/models/IPost';
 import { useFilter } from '../hooks/useFilter';
 import { IFilter } from '../interfaces/IFilter';
-import { useAsyncLoader } from '../hooks/useLoader';
+import { useLoader } from '../hooks/useLoader';
 import PostService from '../api/PostService';
 import Modal from '../components/ui/modal/Modal';
 import PostForm from '../components/PostForm';
@@ -21,12 +21,16 @@ function Posts() {
 
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-    const [fetchPosts, postsLoading, postsError] = useAsyncLoader(async () => {
-        if (postsFilter.limit > 0) {
-            const res = await PostService.getAll(postsFilter.limit, page);
+    const [
+        fetchPosts,
+        postsLoaded,
+        postsError,
+    ] = useLoader<[number, number]>(async (_limit, _page) => {
+        if (_limit > 0) {
+            const res = await PostService.getAll(_limit, _page);
             const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
             setPosts(res.data);
-            setTotalPages(Math.ceil(totalPosts / postsFilter.limit));
+            setTotalPages(Math.ceil(totalPosts / _limit));
         } else {
             const res = await PostService.getAll();
             setPosts(res.data);
@@ -35,8 +39,8 @@ function Posts() {
     });
 
     useEffect(() => {
-        fetchPosts();
-    }, [page, postsFilter.limit]);
+        fetchPosts(postsFilter.limit, page);
+    }, [postsFilter.limit, page]);
 
     const onPostRemove = (post: IPost) => {
         setPosts([...posts].filter((p) => p.id !== post.id));
@@ -63,11 +67,10 @@ function Posts() {
                 onFilterUpdate={setPostsFilter}
             />
             {postsError
-                && <h1 className="title">An error has occurred: {postsError}</h1>
-            }
-            {postsLoading
-                ? <Loader/>
-                : <PostList posts={sortedAndSearchedPosts} title="Posts" onPostRemove={onPostRemove}/>}
+                && <h1 className="title">An error has occurred: {postsError}</h1>}
+            {postsLoaded
+                ? <PostList posts={sortedAndSearchedPosts} title="Posts" onPostRemove={onPostRemove}/>
+                : <Loader/>}
             <Pagination
                 page={page}
                 onPageChange={setPage}

@@ -1,45 +1,23 @@
 import { useState } from 'react';
 
-export function useAsyncLoader(
-    callback: () => Promise<void>,
-): [() => Promise<void>, boolean, string?] {
-    const [isLoading, setIsLoading] = useState(false);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useLoader<Args extends any[]>(
+    callback: (...args: Args) => Promise<void>,
+): [(...args: Args) => Promise<void>, boolean, string?] {
+    const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState<string>();
 
-    const loader = async () => {
+    const loader = async (...args: Args) => {
         try {
-            setIsLoading(true);
-            await callback();
+            await callback(...args);
         } catch (e) {
             if (e instanceof Error) {
                 setError(e.message);
             }
         } finally {
-            setIsLoading(false);
+            setLoaded(true);
         }
     };
 
-    return [loader, isLoading, error];
-}
-
-export function useLoader(
-    callback: () => void,
-): [() => void, boolean, string?] {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string>();
-
-    const loader = () => {
-        try {
-            setIsLoading(true);
-            callback();
-        } catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    return [loader, isLoading, error];
+    return [loader, loaded, error];
 }

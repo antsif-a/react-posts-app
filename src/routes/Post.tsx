@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IPost } from '../api/models/IPost';
-import { useAsyncLoader } from '../hooks/useLoader';
+import { useLoader } from '../hooks/useLoader';
 import PostService from '../api/PostService';
 import Loader from '../components/ui/loader/Loader';
 
 function Post() {
     const params = useParams<'id'>();
     const [post, setPost] = useState<IPost>();
-    const [fetchPost, postLoading, error] = useAsyncLoader(async () => {
-        if (params.id) {
-            const res = await PostService.getById(Number.parseInt(params.id, 10));
-            setPost(res.data);
-        }
+    const [fetchPost, postLoaded, postError] = useLoader<[number]>(async (id) => {
+        const res = await PostService.getById(id);
+        setPost(res.data);
     });
 
     useEffect(() => {
-       fetchPost();
+       if (params.id) {
+           fetchPost(Number.parseInt(params.id, 10));
+       }
     }, []);
 
-    if (postLoading || !post) {
+    if (!postLoaded || !post) {
         return <Loader />;
     }
 
-    if (error) {
-        return <h1 className="title">{error}</h1>;
+    if (postError) {
+        return <h1 className="title">{postError}</h1>;
     }
 
     return (
