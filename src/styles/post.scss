@@ -5,3 +5,11 @@
     margin-top: 15px;
     border: 2px solid $primary-color;
 }
+
+.comments {
+    margin-top: 10px;
+
+    .comment {
+        margin: 15px auto 15px;
+    }
+}
