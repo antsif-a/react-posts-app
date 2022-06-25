@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import Input from './ui/input/Input';
 import Button from './ui/button/Button';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from '../api/models/IPost';
 
 interface PostFormProps {
     onPostCreate: (post: IPost) => void;

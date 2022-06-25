@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from './models/IPost';
 
 class PostService {
     private static api = axios.create({

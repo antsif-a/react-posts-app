@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from '../api/models/IPost';
 import { IFilter } from '../interfaces/IFilter';
 
 export function useFilter(posts: IPost[], filter: IFilter) {

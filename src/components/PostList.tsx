@@ -1,7 +1,7 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PostItem from './PostItem';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from '../api/models/IPost';
 
 interface PostListProps {
     posts: IPost[];

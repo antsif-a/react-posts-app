@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from '../api/models/IPost';
 import { useAsyncLoader } from '../hooks/useLoader';
 import PostService from '../api/PostService';
 import Loader from '../components/ui/loader/Loader';

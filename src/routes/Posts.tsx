@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IPost } from '../interfaces/IPost';
+import { IPost } from '../api/models/IPost';
 import { useFilter } from '../hooks/useFilter';
 import { IFilter } from '../interfaces/IFilter';
 import { useAsyncLoader } from '../hooks/useLoader';
