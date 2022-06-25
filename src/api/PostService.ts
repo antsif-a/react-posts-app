@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import axios, { AxiosResponse } from 'axios';
 import { IPost } from './models/IPost';
 
@@ -7,11 +8,11 @@ class PostService {
     });
 
     public static getAll(limit?: number, page?: number): Promise<AxiosResponse<IPost[]>> {
-        const params: { limit?: number, page?: number } = {};
+        const params: { _limit?: number, _page?: number } = {};
         if (limit !== undefined) {
-            params.limit = limit;
+            params._limit = limit;
             if (page !== undefined) {
-                params.page = page;
+                params._page = page;
             }
             return this.api.get<IPost[]>('posts', { params });
         }
