@@ -6,25 +6,20 @@ class PostService {
         baseURL: 'https://jsonplaceholder.typicode.com/',
     });
 
-    public static async get(limit = 10, page = 1): Promise<AxiosResponse<IPost[]>> {
-        return this.api.get('posts', {
-            params: {
-                _limit: limit,
-                _page: page,
-            },
-        }).then((res) => res as AxiosResponse<IPost[]>);
+    public static async getAll(limit?: number, page?: number): Promise<AxiosResponse<IPost[]>> {
+        const params: { limit?: number, page?: number } = {};
+        if (limit !== undefined) {
+            params.limit = limit;
+            if (page !== undefined) {
+                params.page = page;
+            }
+            return this.api.get<IPost[]>('posts', { params });
+        }
+        return this.api.get<IPost[]>('posts');
     }
 
-    public static async getAll(): Promise<AxiosResponse<IPost[]>> {
-        return this.api.get('posts').then((res) => res as AxiosResponse<IPost[]>);
-    }
-
-    public static async getPosts(limit: number, pages: number): Promise<IPost[]> {
-        return this.get(limit, pages).then((res) => res.data);
-    }
-
-    public static async getAllPosts(): Promise<IPost[]> {
-        return this.getAll().then((res) => res.data);
+    public static async getById(id: number): Promise<AxiosResponse<IPost[]>> {
+        return this.api.get<IPost[]>(`posts/${id}`);
     }
 }
 

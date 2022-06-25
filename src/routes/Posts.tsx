@@ -24,13 +24,13 @@ function Posts() {
     const [totalPages, setTotalPages] = useState(0);
     const [fetchPosts, postsLoading, postsError] = useAsyncLoader(async () => {
         if (postsFilter.limit > 0) {
-            const res = await PostService.get(postsFilter.limit, page);
+            const res = await PostService.getAll(postsFilter.limit, page);
             const totalPosts = Number.parseInt(res.headers['x-total-count'], 10);
             setPosts(res.data);
             setTotalPages(Math.ceil(totalPosts / postsFilter.limit));
         } else {
-            const newPosts = await PostService.getAllPosts();
-            setPosts(newPosts);
+            const res = await PostService.getAll();
+            setPosts(res.data);
             setTotalPages(1);
         }
     });
